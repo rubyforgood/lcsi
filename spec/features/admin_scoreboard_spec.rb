@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'Admin scoreboard', type: :feature do
-  let(:contest) { Contest.create! }
+  let(:contest) { Contest.create!(started_at: Time.now) }
 
   scenario 'admin scoreboard is accessible to admins' do
     # TODO Update when authorization is in place
@@ -39,8 +39,21 @@ RSpec.feature 'Admin scoreboard', type: :feature do
     team_2 = Team.create!(contest: contest, name: 'Team 2')
     problem = Problem.create!(contest: contest)
 
-    Submission.create!(problem: problem, team: team_1, passed: false)
-    Submission.create!(problem: problem, team: team_2, passed: true)
+    Submission.create!(problem: problem, team: team_1, status: 'failed')
+    Submission.create!(problem: problem, team: team_2, status: 'passed')
+
+    visit admin_contest_scoreboard_path(contest, logged_in: true)
+
+    expect(page).to have_text(/Team 2.*Team 1/)
+  end
+
+  scenario 'ties are broken by time' do
+    team_1 = Team.create!(contest: contest, name: 'Team 1')
+    team_2 = Team.create!(contest: contest, name: 'Team 2')
+    problem = Problem.create!(contest: contest)
+
+    Submission.create!(problem: problem, team: team_2, status: 'passed')
+    Submission.create!(problem: problem, team: team_1, status: 'passed')
 
     visit admin_contest_scoreboard_path(contest, logged_in: true)
 

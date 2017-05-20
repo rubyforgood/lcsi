@@ -5,6 +5,6 @@ class TeamScoreService
   end
 
   def call
-    @team.submissions.where(passed: true, problem: @contest.problems).count
+    @team.submissions.where(status: 'passed', problem: @contest.problems).count
   end
 end
