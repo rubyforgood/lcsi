@@ -1,5 +1,4 @@
 require 'sidekiq/web'
-
 Rails.application.routes.draw do
   get 'sessions/new'
 
@@ -21,6 +20,10 @@ Rails.application.routes.draw do
   resources :problems, only: [:index, :show]
 
   resources :attachments, only: [:show]
+
+  get    'login',  to: 'sessions#new'
+  post   'login',  to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
 
   get "/admin" => redirect("/admin/contest")
 

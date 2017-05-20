@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170520150135) do
+ActiveRecord::Schema.define(version: 20170520182134) do
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.integer "contest_id"
+    t.boolean "admin"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_accounts_on_contest_id"
+  end
 
   create_table "administrators", force: :cascade do |t|
     t.string "username"
