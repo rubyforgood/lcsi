@@ -24,7 +24,7 @@ RSpec.describe TeamTimeService, type: :model do
         problem = Problem.create!(contest: contest)
         submission = Submission.create!(problem: problem, team: team, status: 'passed')
 
-        expected_time = submission.created_at - contest.started_at
+        expected_time = submission.created_at - contest.started_at + 0
         expect(TeamTimeService.new(contest: contest, team: team).call).to eq(expected_time)
       end
     end
