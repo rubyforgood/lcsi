@@ -6,8 +6,9 @@ AllCops:
   TargetRubyVersion: 2.4
   Exclude:
     - docs/**/*
+
 inherit_from:
-  - .rubocop_todo.yml
+    - .rubocop_todo.yml
 
 Style/Documentation:
   Enabled: false
