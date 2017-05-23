@@ -3,15 +3,14 @@ require 'submission_runners/base'
 
 module SubmissionRunners
   class Python < Base
+    include Support::InterpretiveLanguage
     def self.image
       'python:3.6.1'
     end
 
-    def initialize(*args)
-      @python_builder = Docker::PythonBuilder.new(self)
-      super
-    end
 
-    delegate :build, :run, to: :@python_builder
+    def language_executable
+      '/usr/local/bin/python'
+    end
   end
 end

@@ -1,10 +1,10 @@
 require 'rails_helper'
-require_relative '../../lib/docker/helpers'
+require_relative '../../../lib/docker/helpers'
 include Docker::Helpers
 
 RSpec.describe 'OmniBuilder with Python', type: 'docker' do
   describe 'docker command and barebone python image' do
-    let(:dir) { Dir.pwd + '/spec/fixtures/docker/' }
+    let(:dir) { Dir.pwd + '/spec/fixtures/submission_runners/general/' }
 
     let(:submission) {
       ->i, o, e {
