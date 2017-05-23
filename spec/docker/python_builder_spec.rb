@@ -63,26 +63,24 @@ RSpec.describe 'OmniBuilder with Python', type: 'docker' do
     end
 
     it 'invalid syntax entry submission' do
-      skip "false possitives: exit status should not be 0"
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
+      invalid_entry = EntryFile(File.join(dir, 'corrupt_code.py'))
 
-      runner = temp_file_block(EntryFile("asdf"), Dir.pwd) do |invalid_entry|
-        SubmissionRunners::Python.new submission.call(input, output, invalid_entry)
-      end
+      runner = SubmissionRunners::Ruby.new submission.call(input, output, invalid_entry)
 
       # Build and Run
       runner.build
       r = runner.run
 
       expect(r.out).to_not eq(output.read)
-      expect(r.err).to eq('')
+      expect(r.err).to_not eq('')
       expect(r.exitstatus).to_not eq(0)
-      expect(r.success?).to be_truthy
+      expect(r.success?).to be_falsey
 
       # Call
-      expect(runner.call).to be_truthy
-      expect(runner.output_type).to eq("run_error")
+      expect(runner.call).to be_falsey
+      expect(runner.output_type).to eq("run_failure")
       expect(runner.run_succeeded).to be_falsey
     end
   end
