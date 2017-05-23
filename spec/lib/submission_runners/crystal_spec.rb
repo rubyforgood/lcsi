@@ -39,20 +39,20 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
       expect(b.err).to eq('')
       expect(b.out).to_not eq(output.read)
-      expect(b.sucress?).to be_truthy
+      expect(b.success?).to be_truthy
 
       # Run
       r = runner.run
 
       expect(r.err).to eq('')
       expect(r.out).to eq(output.read)
-      expect(r.sucress?).to be_truthy
+      expect(r.success?).to be_truthy
 
       # Call
       runner.call
       expect(runner.output).to eq(output.read)
-      expect(runner.output_type).to eq("sucress")
-      expect(runner.run_sucreeded).to be_truthy
+      expect(runner.output_type).to eq("success")
+      expect(runner.run_succeeded).to be_truthy
     end
 
     it 'failing entry submission' do
@@ -67,20 +67,20 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
       expect(b.err).to eq('')
       expect(b.out).to_not eq(output.read)
-      expect(b.sucress?).to be_truthy
+      expect(b.success?).to be_truthy
 
       # Run
       r = runner.run
 
       expect(r.err).to eq('')
       expect(r.out).to_not eq(output.read)
-      expect(r.sucress?).to be_truthy
+      expect(r.success?).to be_truthy
 
       # Call
       runner.call
       expect(runner.output).to_not eq(output.read)
-      expect(runner.output_type).to eq("sucress")
-      expect(runner.run_sucreeded).to be_truthy
+      expect(runner.output_type).to eq("success")
+      expect(runner.run_succeeded).to be_truthy
     end
 
     it 'compiles and doesn\'t run entry submission' do
@@ -95,20 +95,20 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
       expect(b.err).to eq('')
       expect(b.out).to_not eq(output.read)
-      expect(b.sucress?).to be_truthy
+      expect(b.success?).to be_truthy
 
       # Run
       r = runner.run
 
       expect(r.err).to_not eq('')
       expect(r.out).to_not eq(output.read)
-      expect(r.sucress?).to be_falsey
+      expect(r.success?).to be_falsey
 
       # Call
       runner.call
       expect(runner.output).to_not eq(output.read)
       expect(runner.output_type).to eq("run_failure")
-      expect(runner.run_sucreeded).to be_falsey
+      expect(runner.run_succeeded).to be_falsey
     end
 
     it 'doesn\'t compile entry submission' do
@@ -123,20 +123,20 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
 
       expect(b.err).to_not eq('')
       expect(b.out).to_not eq(output.read)
-      expect(b.sucress?).to be_falsey
+      expect(b.success?).to be_falsey
 
       # Run
       r = runner.run
 
       expect(r.err).to_not eq('')
       expect(r.out).to_not eq(output.read)
-      expect(r.sucress?).to be_falsey
+      expect(r.success?).to be_falsey
 
       # Call
       runner.call
       expect(runner.output).to_not eq(output.read)
       expect(runner.output_type).to eq("build_failure")
-      expect(runner.run_sucreeded).to be_falsey
+      expect(runner.run_succeeded).to be_falsey
     end
   end
 end
