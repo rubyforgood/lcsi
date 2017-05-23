@@ -3,7 +3,7 @@ require_relative '../../../lib/docker/helpers'
 include Docker::Helpers
 
 RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
-  describe 'docker command and barebone C++ image' do
+  describe 'docker command and barebone Crystal image' do
     let(:dir) { Dir.pwd + '/spec/fixtures/submission_runners/crystal/' }
 
     before { @keep_files = Dir.entries(dir) }
@@ -11,7 +11,7 @@ RSpec.describe SubmissionRunners::Crystal, type: 'docker' do
     after {
       compiled = Dir.entries(dir) - @keep_files
       compiled.each do |file|
-        FileUtils.rm File.join(dir, file)
+        FileUtils.rm_rf File.join(dir, file)
       end
     }
 
