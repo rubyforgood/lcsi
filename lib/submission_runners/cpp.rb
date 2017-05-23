@@ -8,7 +8,7 @@ module SubmissionRunners
   class Cpp < Base
     attr_reader :entry
     include Docker::Helpers
-    include Support::TempFileBlock
+
     def self.image
       "gcc:7.1"
     end
@@ -22,10 +22,6 @@ module SubmissionRunners
 
     def run
       docker_run("./#{entry.basename}", chdir: submission_dir, in: input_buffer)
-    end
-
-    def container_user
-      "root"
     end
   end
 end
