@@ -34,7 +34,7 @@ RSpec.describe 'OmniBuilder with Ruby', type: 'docker' do
       # expect(r.success?).to be_truthy
 
       # Call
-      expect(runner.call).to be_truthy
+      runner.call
       expect(runner.output).to eq(output.read)
       expect(runner.output_type).to eq("success")
       expect(runner.run_succeeded).to be_truthy
@@ -56,7 +56,7 @@ RSpec.describe 'OmniBuilder with Ruby', type: 'docker' do
       # expect(r.success?).to be_truthy
 
       # Call
-      expect(runner.call).to be_truthy
+      runner.call
       expect(runner.output).to_not eq(output.read)
       expect(runner.output_type).to eq("success")
       expect(runner.run_succeeded).to be_truthy
@@ -79,7 +79,7 @@ RSpec.describe 'OmniBuilder with Ruby', type: 'docker' do
       expect(r.success?).to be_falsey
 
       # Call
-      expect(runner.call).to be_falsey
+      runner.call
       expect(runner.output_type).to eq("run_failure")
       expect(runner.run_succeeded).to be_falsey
     end
