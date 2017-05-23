@@ -1,3 +1,6 @@
+require_relative '../docker/helpers'
+require_relative './temp_file_block'
+
 module Support
   module InterpretiveLanguage
     def self.included(base)
