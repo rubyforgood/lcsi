@@ -17,6 +17,8 @@ module SubmissionRunners
       !!@run_succeeded
     end
 
+    private
+
     def run_phase(phase)
       result = send(phase)
 
