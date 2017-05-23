@@ -3,15 +3,13 @@ require 'submission_runners/base'
 
 module SubmissionRunners
   class Ruby < Base
+    include Support::InterpretiveLanguage
     def self.image
       'ruby:2.4.1'
     end
 
-    def initialize(*args)
-      @ruby_builder = Docker::RubyBuilder.new(self)
-      super
+    def language_executable
+      '/usr/local/bin/ruby'
     end
-
-    delegate :build, :run, to: :@ruby_builder
   end
 end
