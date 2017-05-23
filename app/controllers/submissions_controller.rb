@@ -9,7 +9,7 @@ class SubmissionsController < ApplicationController
         file:     submission[:attachment],
         filename: submission[:attachment].try(:original_filename),
         problem:  Problem.find_by(id: submission[:problem]),
-        team:     current_team,
+        account:  current_account
     )
 
     if @submission.valid?
@@ -24,10 +24,4 @@ class SubmissionsController < ApplicationController
   def show
     @submission = Submission.find params[:id]
   end
-
-  def current_team
-    # TODO: Team auth
-    Contest.instance.teams.first
-  end
-  helper_method :current_team
 end

@@ -1,0 +1,13 @@
+Description:
+  Generates a new SubmissionRunner template. Pass the language name to the generator, along with a file extension
+
+Example:
+  `rails generate submission_runner ruby --ext rb`
+
+  creates a SubmissionRunner template for Ruby:
+    create  lib/submission_runners/ruby.rb
+    gsub  lib/submission_runners/ruby.rb
+    create  spec/lib/submission_runners/ruby_spec.rb
+    gsub  spec/lib/submission_runners/ruby_spec.rb
+    gsub  spec/lib/submission_runners/ruby_spec.rb
+    gsub  spec/lib/submission_runners/ruby_spec.rb

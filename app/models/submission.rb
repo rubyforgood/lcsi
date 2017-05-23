@@ -3,7 +3,7 @@ require 'stringio'
 class Submission < ApplicationRecord
   has_one :attachment, as: :attachable, validate: true
   has_many :submission_results
-  belongs_to :team
+  belongs_to :account
   belongs_to :problem
 
   validate do
@@ -44,7 +44,7 @@ class Submission < ApplicationRecord
   def self.create_from_file(**options)
     submission = Submission.new(
       problem: options[:problem],
-      team:    options[:team],
+      account:    options[:account],
     )
 
     # Get a Pathname for the filename
@@ -81,7 +81,7 @@ end
 # Table name: submissions
 #
 #  id         :integer          not null, primary key
-#  team_id    :integer
+#  account_id :integer
 #  problem_id :integer
 #  runtime    :integer
 #  created_at :datetime         not null

@@ -1,7 +1,7 @@
 <table class='table table-striped'>
   <thead>
     <tr>
-      <th>Team</th>
+      <th>Account</th>
       <% @presenter.problems.each.with_index do |problem, index| %>
         <th class='text-center'><%= index + 1 %></th>
       <% end %>
@@ -10,14 +10,14 @@
     </tr>
   </thead>
   <tbody>
-    <% @presenter.ranked_teams.each do |team| %>
+    <% @presenter.ranked_accounts.each do |account| %>
       <tr>
-        <td><%= team.name %></td>
+        <td><%= account.name %></td>
         <% @presenter.problems.each do |problem| %>
-          <td class='text-center' bgcolor=<%= @presenter.color(team: team, problem: problem) %>><%= @presenter.attempts(team: team, problem: problem) %></td>
+          <td class='text-center' bgcolor=<%= @presenter.color(account: account, problem: problem) %>><%= @presenter.attempts(account: account, problem: problem) %></td>
         <% end %>
-        <td class='text-center'><%= @presenter.score(team: team) %></td>
-        <td class='text-center'><%= @presenter.time_plus_penalty(team: team) %></td>
+        <td class='text-center'><%= @presenter.score(account: account) %></td>
+        <td class='text-center'><%= @presenter.time_plus_penalty(account: account) %></td>
       </tr>
     <% end %>
   </tbody>

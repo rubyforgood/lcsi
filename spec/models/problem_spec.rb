@@ -15,9 +15,9 @@ RSpec.describe Problem, type: :model do
   it "has many submissions" do
     contest = Contest.instance
     problem = Problem.create!(contest: contest)
-    team = Team.create!(contest: contest)
-    problem.submissions.create!(team: team)
-    problem.submissions.create!(team: team)
+    account = Account.create!(contest: contest)
+    problem.submissions.create!(account: account)
+    problem.submissions.create!(account: account)
     expect(problem.submissions.count).to be 2
   end
 

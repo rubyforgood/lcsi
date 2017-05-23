@@ -1,7 +1,7 @@
 class ProblemAttemptsService
-  def initialize(problem:, team:)
+  def initialize(problem:, account:)
     @problem = problem
-    @team = team
+    @account = account
   end
 
   def call
@@ -15,7 +15,7 @@ class ProblemAttemptsService
   private
 
   def submissions
-    @team.submissions.where(problem: @problem)
+    @account.submissions.where(problem: @problem)
   end
 
   def passed_submissions

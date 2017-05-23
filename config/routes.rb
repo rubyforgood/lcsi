@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
     resources :attachments, only: [:destroy]
 
-    resources :teams
+    resources :accounts, only: [:index, :new, :create]
   end
 
   resources :problems, only: [:index, :show]

@@ -3,8 +3,8 @@ class TeamTimeService
     @contest = contest
   end
 
-  def call(team:)
-    @team = team
+  def call(account:)
+    @account = account
 
     if passed_submissions.any?
       first_passed_submission.created_at - @contest.started_at + time_penalty
@@ -16,7 +16,7 @@ class TeamTimeService
   private
 
   def submissions
-    @team.submissions.where(problem: @contest.problems)
+    @account.submissions.where(problem: @contest.problems)
   end
 
   def passed_submissions

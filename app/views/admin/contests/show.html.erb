@@ -11,7 +11,7 @@
       <div class='btn-group'>
         <%= link_to "Edit Contest", edit_admin_contest_path, class: 'btn btn-secondary' %>
         <%= link_to 'Create Problem', new_admin_problem_path, class: 'btn btn-secondary' %>
-        <%= link_to 'Manage Teams', admin_teams_path, class: 'btn btn-secondary' %>
+        <%= link_to 'Manage Accounts', admin_accounts_path, class: 'btn btn-secondary' %>
       </div>
 
       <div class='input-group'>
@@ -22,7 +22,7 @@
   </section>
 
 <ul>
-  <li><%= link_to("#{@contest.teams.count} Teams", '#') %></li>
+  <li><%= link_to("#{@contest.accounts.count} Accounts", '#') %></li>
   <li><%= link_to("#{@contest.problems.count} Problems", admin_problems_path) %></li>
   <li><%= link_to("#{Submission.count} Submissions", '#') %></li>
 </ul>

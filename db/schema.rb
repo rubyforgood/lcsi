@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170521150912) do
+ActiveRecord::Schema.define(version: 20170521154527) do
 
   create_table "accounts", force: :cascade do |t|
     t.string "username"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20170521150912) do
     t.boolean "admin"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["contest_id"], name: "index_accounts_on_contest_id"
     t.index ["username", "password"], name: "index_accounts_on_username_and_password"
     t.index ["username"], name: "index_accounts_on_username", unique: true
@@ -73,24 +74,14 @@ ActiveRecord::Schema.define(version: 20170521150912) do
   end
 
   create_table "submissions", force: :cascade do |t|
-    t.integer "team_id"
+    t.integer "account_id"
     t.integer "problem_id"
     t.integer "runtime"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
+    t.index ["account_id"], name: "index_submissions_on_account_id"
     t.index ["problem_id"], name: "index_submissions_on_problem_id"
-    t.index ["team_id"], name: "index_submissions_on_team_id"
-  end
-
-  create_table "teams", force: :cascade do |t|
-    t.string "name"
-    t.string "username"
-    t.string "password"
-    t.integer "contest_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["contest_id"], name: "index_teams_on_contest_id"
   end
 
 end

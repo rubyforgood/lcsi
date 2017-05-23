@@ -3,7 +3,7 @@ class TeamScoreService
     @contest = contest
   end
 
-  def call(team:)
-    team.submissions.where(status: 'passed', problem: @contest.problems).count
+  def call(account:)
+    account.submissions.where(status: 'passed', problem: @contest.problems).count
   end
 end

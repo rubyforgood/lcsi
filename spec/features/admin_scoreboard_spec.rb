@@ -24,49 +24,49 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       expect(current_path).to eq(admin_contest_scoreboard_path(contest))
     end
 
-    scenario 'a team without activity is shown', :include_contest do
-      team = Team.create!(contest: contest, name: 'Team 1')
+    scenario 'an account without activity is shown', :include_contest do
+      account = Account.create!(contest: contest, name: 'account 1')
 
       visit admin_contest_scoreboard_path(contest)
 
-      expect(page).to have_text('Team 1')
+      expect(page).to have_text('account 1')
     end
 
-    scenario 'a team with activity is shown' do
-      team = Team.create!(contest: contest, name: 'Team 1')
+    scenario 'a account with activity is shown' do
+      account = Account.create!(contest: contest, name: 'account 1')
       problem = Problem.create!(contest: contest)
-      submission = Submission.create!(team: team, problem: problem)
+      submission = Submission.create!(account: account, problem: problem)
 
       visit admin_contest_scoreboard_path(contest)
 
-      expect(page).to have_text('Team 1')
+      expect(page).to have_text('account 1')
 
     end
 
-    scenario 'teams are ranked by current score' do
-      team_1 = Team.create!(contest: contest, name: 'Team 1')
-      team_2 = Team.create!(contest: contest, name: 'Team 2')
+    scenario 'accounts are ranked by current score' do
+      account_1 = Account.create!(contest: contest, name: 'account 1')
+      account_2 = Account.create!(contest: contest, name: 'account 2')
       problem = Problem.create!(contest: contest)
 
-      Submission.create!(problem: problem, team: team_1, status: 'failed')
-      Submission.create!(problem: problem, team: team_2, status: 'passed')
+      Submission.create!(problem: problem, account: account_1, status: 'failed')
+      Submission.create!(problem: problem, account: account_2, status: 'passed')
 
       visit admin_contest_scoreboard_path(contest)
 
-      expect(page).to have_text(/Team 2.*Team 1/)
+      expect(page).to have_text(/account 2.*account 1/)
     end
 
     scenario 'ties are broken by time' do
-      team_1 = Team.create!(contest: contest, name: 'Team 1')
-      team_2 = Team.create!(contest: contest, name: 'Team 2')
+      account_1 = Account.create!(contest: contest, name: 'account 1')
+      account_2 = Account.create!(contest: contest, name: 'account 2')
       problem = Problem.create!(contest: contest)
 
-      submission_1 = Submission.create!(problem: problem, team: team_2, status: 'passed')
-      submission_2 = Submission.create!(problem: problem, team: team_1, status: 'passed')
+      submission_1 = Submission.create!(problem: problem, account: account_2, status: 'passed')
+      submission_2 = Submission.create!(problem: problem, account: account_1, status: 'passed')
 
       visit admin_contest_scoreboard_path(contest)
 
-      expect(page).to have_text(/Team 2.*Team 1/)
+      expect(page).to have_text(/account 2.*account 1/)
     end
 
     scenario 'problem numbers are shown in the table header' do
@@ -79,10 +79,10 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       end
     end
 
-    scenario 'there is a team column' do
+    scenario 'there is a account column' do
       visit admin_contest_scoreboard_path(contest)
 
-      expect(page).to have_text(/Team/)
+      expect(page).to have_text(/Account/)
     end
 
     scenario 'there is a score column' do
@@ -98,7 +98,7 @@ RSpec.feature 'Admin scoreboard', type: :feature do
     end
 
     scenario 'unattempted problems show a 0 total number of submissions' do
-      team = Team.create!(contest: contest, name: 'Team 1')
+      account = Account.create!(contest: contest, name: 'account 1')
       problem = Problem.create!(contest: contest)
 
       visit admin_contest_scoreboard_path(contest)
@@ -107,13 +107,13 @@ RSpec.feature 'Admin scoreboard', type: :feature do
     end
 
     scenario 'unsolved problems show the total number of submissions' do
-      team = Team.create!(contest: contest, name: 'Team 1')
+      account = Account.create!(contest: contest, name: 'account 1')
       problem = Problem.create!(contest: contest)
 
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
 
       visit admin_contest_scoreboard_path(contest)
 
@@ -121,13 +121,13 @@ RSpec.feature 'Admin scoreboard', type: :feature do
     end
 
     scenario 'solved problems show the total number of submissions' do
-      team = Team.create!(contest: contest, name: 'Team 1')
+      account = Account.create!(contest: contest, name: 'account 1')
       problem = Problem.create!(contest: contest)
 
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'passed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'passed')
 
       visit admin_contest_scoreboard_path(contest)
 
@@ -135,37 +135,37 @@ RSpec.feature 'Admin scoreboard', type: :feature do
     end
 
     scenario 'problems show the total number of submissions up to the first success' do
-      team = Team.create!(contest: contest, name: 'Team 1')
+      account = Account.create!(contest: contest, name: 'account 1')
       problem = Problem.create!(contest: contest)
 
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'passed')
-      submission = Submission.create!(team: team, problem: problem, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem, status: 'passed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'passed')
+      submission = Submission.create!(account: account, problem: problem, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem, status: 'passed')
 
       visit admin_contest_scoreboard_path(contest)
 
       expect(page).to have_text('4')
     end
 
-    scenario 'score is shown for each team' do
-      team = Team.create!(contest: contest, name: 'Team 1')
+    scenario 'score is shown for each account' do
+      account = Account.create!(contest: contest, name: 'account 1')
       problem_1 = Problem.create!(contest: contest)
       problem_2 = Problem.create!(contest: contest)
       problem_3 = Problem.create!(contest: contest)
 
-      submission = Submission.create!(team: team, problem: problem_1, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem_1, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem_1, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem_1, status: 'passed')
+      submission = Submission.create!(account: account, problem: problem_1, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem_1, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem_1, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem_1, status: 'passed')
 
-      submission = Submission.create!(team: team, problem: problem_2, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem_2, status: 'failed')
-      submission = Submission.create!(team: team, problem: problem_2, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem_2, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem_2, status: 'failed')
+      submission = Submission.create!(account: account, problem: problem_2, status: 'failed')
 
-      submission = Submission.create!(team: team, problem: problem_3, status: 'passed')
+      submission = Submission.create!(account: account, problem: problem_3, status: 'passed')
 
       visit admin_contest_scoreboard_path(contest)
 
@@ -174,22 +174,22 @@ RSpec.feature 'Admin scoreboard', type: :feature do
       end
     end
 
-    scenario 'time + penalty is shown for each team' do
-      team = Team.create!(contest: contest, name: 'Team 1')
+    scenario 'time + penalty is shown for each account' do
+      account = Account.create!(contest: contest, name: 'account 1')
       problem_1 = Problem.create!(contest: contest)
       problem_2 = Problem.create!(contest: contest)
       problem_3 = Problem.create!(contest: contest)
 
-      Submission.create!(team: team, problem: problem_1, status: 'failed')
-      Submission.create!(team: team, problem: problem_1, status: 'failed')
-      Submission.create!(team: team, problem: problem_1, status: 'failed')
-      submission_1 = Submission.create!(team: team, problem: problem_1, status: 'passed')
+      Submission.create!(account: account, problem: problem_1, status: 'failed')
+      Submission.create!(account: account, problem: problem_1, status: 'failed')
+      Submission.create!(account: account, problem: problem_1, status: 'failed')
+      submission_1 = Submission.create!(account: account, problem: problem_1, status: 'passed')
 
-      Submission.create!(team: team, problem: problem_2, status: 'failed')
-      Submission.create!(team: team, problem: problem_2, status: 'failed')
-      Submission.create!(team: team, problem: problem_2, status: 'failed')
+      Submission.create!(account: account, problem: problem_2, status: 'failed')
+      Submission.create!(account: account, problem: problem_2, status: 'failed')
+      Submission.create!(account: account, problem: problem_2, status: 'failed')
 
-      submission_2 = Submission.create!(team: team, problem: problem_3, status: 'passed')
+      submission_2 = Submission.create!(account: account, problem: problem_3, status: 'passed')
 
       submission_1.reload
       submission_2.reload

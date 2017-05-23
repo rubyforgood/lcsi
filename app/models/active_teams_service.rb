@@ -1,10 +1,10 @@
 class ActiveTeamsService
-  def initialize(contest:, teams:)
+  def initialize(contest:, accounts:)
     @contest = contest
-    @teams = teams
+    @accounts = accounts
   end
 
   def call
-    @teams.reject { |team| team.submissions.where(problem: @contest.problems).empty? }
+    @accounts.reject { |account| account.submissions.where(problem: @contest.problems).empty? }
   end
 end

@@ -1,0 +1,5 @@
+<h1><%= @contest.name %> Accounts</h1>
+
+<%= link_to "Add New Account", new_admin_account_path, class: 'btn' %>
+
+<%= render @accounts, partial: 'admin/teams/team' %>

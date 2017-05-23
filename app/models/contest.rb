@@ -1,6 +1,6 @@
 class Contest < ApplicationRecord
   has_many :problems
-  has_many :teams
+  has_many :accounts
 
   def self.instance
     order(:created_at).reverse.first

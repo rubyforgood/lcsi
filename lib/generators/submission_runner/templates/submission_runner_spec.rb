@@ -1,9 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe SubmissionRunners::Java, type: 'docker' do
+# TODO:
+# - create fixtures directory at "spec/fixtures/submission_runners/placeholder.language_name"
+# - create CompilesAndRuns, DoesntCompile, and CompilesDoesntRun fixtures
+
+RSpec.describe SubmissionRunners::placeholder.class_name, type: :docker do
+  let(:filename) { "#{problem.name}.placeholder.file_extension" }
   describe "#call" do
     let(:contest) { Contest.instance }
-    let(:account) { contest.accounts.create! }
+    let(:team)    { contest.teams.create! }
     let(:problem) do
       Problem.create_from_files!({
         contest:     contest,
@@ -15,17 +20,17 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
     let(:submission) do
       Submission.create_from_file({
         problem:  problem,
-        account:  account,
-        filename: fixtures.join("#{problem_name}.java"),
+        team:     team,
+        filename: fixtures.join(filename),
       }).tap(&:validate!)
     end
-    let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/java") }
+    let(:fixtures) { Pathname.new(Rails.root).join("spec/fixtures/submission_runners/placeholder.language_name") }
 
     subject(:runner) { described_class.new(submission) }
 
     before { runner.call }
 
-    context "java code that won't generate compiler or runtime errors" do
+    context "code that won't generate compiler or runtime errors" do
       let(:problem_name) { "CompilesAndRuns" }
 
       it "has no errors" do
@@ -34,7 +39,7 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       end
     end
 
-    context "java code that will generate compiler errors" do
+    context "code that will generate compiler errors" do
       let(:problem_name) { "DoesntCompile" }
 
       it "has a build failure" do
@@ -43,7 +48,7 @@ RSpec.describe SubmissionRunners::Java, type: 'docker' do
       end
     end
 
-    context "java code that will generate runtime errors" do
+    context "code that will generate runtime errors" do
       let(:problem_name) { "CompilesDoesntRun" }
 
       it "has a run failure" do

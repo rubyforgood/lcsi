@@ -5,7 +5,7 @@ RSpec.describe Submission, type: :model do
     let(:contest) { Contest.instance }
     let(:submission) do
       Submission.create!({
-        team: Team.create!({
+        account: Account.create!({
           contest: contest
         }),
         problem: Problem.create!({
@@ -21,8 +21,8 @@ RSpec.describe Submission, type: :model do
     it 'it has many submission results' do
       contest = Contest.instance
       problem = Problem.create!(contest: contest)
-      team = Team.create!(contest: contest)
-      submission = problem.submissions.create!(team: team)
+      account = Account.create!(contest: contest)
+      submission = problem.submissions.create!(account: account)
       submission.submission_results.create!
       submission.submission_results.create!
       expect(submission.submission_results.count).to be 2
@@ -35,7 +35,7 @@ end
 # Table name: submissions
 #
 #  id         :integer          not null, primary key
-#  team_id    :integer
+#  account_id :integer
 #  problem_id :integer
 #  runtime    :integer
 #  created_at :datetime         not null

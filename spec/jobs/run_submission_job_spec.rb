@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe RunSubmissionJob, type: :job do
   let(:contest) { Contest.create! }
-  let(:team)    { contest.teams.create! }
+  let(:account)    { contest.accounts.create! }
   let(:problem) do
     Problem.create_from_files!({
       contest:     contest,
@@ -14,7 +14,7 @@ RSpec.describe RunSubmissionJob, type: :job do
   let(:submission) do
     Submission.create_from_file({
       problem:  problem,
-      team:     team,
+      account:  account,
       filename: submission_file,
     }).tap(&:validate!)
   end

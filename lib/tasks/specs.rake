@@ -8,7 +8,7 @@ task :rubocop do
 end
 
 RSpec::Core::RakeTask.new(:minus_docker) do |t|
-  t.rspec_opts = '--tag ~docker'
+  t.rspec_opts = '--tag ~type:docker'
 end
 
 task dev_specs: [:minus_docker, :rubocop]

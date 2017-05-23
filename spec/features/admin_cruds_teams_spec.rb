@@ -1,30 +1,30 @@
 require 'rails_helper'
 
-RSpec.feature 'administrator can create teams', type: :feature do
+RSpec.feature 'administrator can create accounts', type: :feature do
   include_context "a configured contest"
   include_context "an authorized admin"
 
-  scenario "an admin can create new teams" do
+  scenario "an admin can create new accounts" do
     visit admin_contest_path
 
-    click_on "Manage Teams"
+    click_on "Manage Accounts"
 
-    teams = [{ name: "A quick and speedy team", username: "roadrunner" },
+    accounts = [{ name: "A quick and speedy account", username: "roadrunner" },
              { name: "Move fast and break things", username: "hare" },
              { name: "Slow and steady", username: "tortise" }]
 
-    teams.each do |t|
-      click_on "Add New Team"
+    accounts.each do |t|
+      click_on "Add New Account"
 
       fill_in "Name", with: t[:name]
       fill_in "Username", with: t[:username]
 
-      click_on "Create Team"
+      click_on "Create Account"
     end
 
-    expect(Contest.instance.teams.count).to eq 3
+    expect(Contest.instance.accounts.count).to eq 5
 
-    teams.each do |t|
+    accounts.each do |t|
       expect(page).to have_content t[:name]
     end
   end

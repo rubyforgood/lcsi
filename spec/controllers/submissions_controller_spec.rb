@@ -5,7 +5,6 @@ RSpec.describe SubmissionsController, type: :controller do
   # Use view or request specs
 
   let(:contest) { Contest.instance }
-  let!(:team)    { contest.teams.create }
   let(:account) { Account.find_by(admin: true) }
 
   let(:valid_session) { { current_account_id: account.id } }
@@ -38,7 +37,7 @@ RSpec.describe SubmissionsController, type: :controller do
     end
 
     it 'reject submission if contest is not started'
-    it 'rejects submission if team not logged in'
+    it 'rejects submission if account not logged in'
 
     describe 'with valid data' do
       # TODO: Start contest
@@ -82,7 +81,7 @@ RSpec.describe SubmissionsController, type: :controller do
         }.to have_enqueued_job(RunSubmissionJob)
       end
 
-      it 'uses current team'
+      it 'uses current account'
     end
   end
 end

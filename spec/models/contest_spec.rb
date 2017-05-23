@@ -8,11 +8,11 @@ RSpec.describe Contest, type: :model do
     expect(contest.problems.count).to be 2
   end
 
-  it "has many teams" do
+  it "has many accounts" do
     contest = Contest.instance
-    contest.teams.create
-    contest.teams.create
-    expect(contest.teams.count).to be 2
+    contest.accounts.create
+    contest.accounts.create
+    expect(contest.accounts.count).to be 3
   end
 
 end

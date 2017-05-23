@@ -3,7 +3,7 @@ require 'fileutils'
 require_relative '../../lib/docker/helpers'
 include Docker::Helpers
 
-RSpec.describe 'docker file helpers', docker: true do
+RSpec.describe 'docker file helpers', type: 'docker' do
   describe 'guaranteed file references' do
     it 'creates a file when one doesn\'t exist' do
       f = InputFile("asdf.asdf")
