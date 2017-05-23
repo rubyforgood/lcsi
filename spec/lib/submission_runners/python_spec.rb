@@ -2,8 +2,8 @@ require 'rails_helper'
 require_relative '../../../lib/docker/helpers'
 include Docker::Helpers
 
-RSpec.describe 'OmniBuilder with Ruby', type: 'docker' do
-  describe 'docker command and barebone ruby image' do
+RSpec.describe 'SubmissionRunner with Python', type: 'docker' do
+  describe 'docker command and barebone python image' do
     let(:dir) { Dir.pwd + '/spec/fixtures/submission_runners/general/' }
 
     let(:submission) {
@@ -21,9 +21,9 @@ RSpec.describe 'OmniBuilder with Ruby', type: 'docker' do
     it 'good entry submission' do
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
-      good_entry = EntryFile(File.join(dir, 'good', 'ProblemA.rb'))
+      good_entry = EntryFile(File.join(dir, 'good', 'ProblemA.py'))
 
-      runner = SubmissionRunners::Ruby.new submission.call(input, output, good_entry)
+      runner = SubmissionRunners::Python.new submission.call(input, output, good_entry)
 
       # # Build and Run
       # runner.build
@@ -43,9 +43,9 @@ RSpec.describe 'OmniBuilder with Ruby', type: 'docker' do
     it 'failing entry submission' do
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
-      bad_entry = EntryFile(File.join(dir, 'bad', 'ProblemA.rb'))
+      bad_entry = EntryFile(File.join(dir, 'bad', 'ProblemA.py'))
 
-      runner = SubmissionRunners::Ruby.new submission.call(input, output, bad_entry)
+      runner = SubmissionRunners::Python.new submission.call(input, output, bad_entry)
 
       # # Build and Run
       # runner.build
@@ -65,7 +65,7 @@ RSpec.describe 'OmniBuilder with Ruby', type: 'docker' do
     it 'invalid syntax entry submission' do
       input = InputFile(File.join(dir, 'ProblemA.in'))
       output = OutputFile(File.join(dir, 'ProblemA.out'))
-      invalid_entry = EntryFile(File.join(dir, 'corrupt_code.rb'))
+      invalid_entry = EntryFile(File.join(dir, 'corrupt_code.py'))
 
       runner = SubmissionRunners::Ruby.new submission.call(input, output, invalid_entry)
 
