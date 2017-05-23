@@ -11,6 +11,11 @@ module SubmissionRunners
       '.java' => Java,
       '.py'   => Python,
       '.rb'   => Ruby,
+      '.c++'  => Cpp,
+      '.cpp'  => Cpp,
+      ".cc"   => Cpp,
+      ".C"    => Cpp,
+      ".cxx"  => Cpp,
     }
   end
 end
