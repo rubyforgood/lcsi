@@ -13,9 +13,5 @@ module SubmissionRunners
     end
 
     delegate :build, :run, to: :@ruby_builder
-
-    def container_user
-      "root"
-    end
   end
 end

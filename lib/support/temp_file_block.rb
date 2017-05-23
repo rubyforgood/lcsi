@@ -3,6 +3,7 @@ module Support
     def temp_file_block(file, dir)
       Tempfile.open([file.basename, file.extname], dir) do |the_file|
         the_file.write(file.read)
+        the_file.chmod(0604)
         the_file.rewind
 
         Dir.chdir(dir) { yield the_file }
