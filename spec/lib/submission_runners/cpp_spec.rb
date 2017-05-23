@@ -2,7 +2,7 @@ require 'rails_helper'
 require_relative '../../../lib/docker/helpers'
 include Docker::Helpers
 
-RSpec.describe SubmissionRunners::Cpp, docker: true do
+RSpec.describe SubmissionRunners::Cpp, type: 'docker' do
   describe 'docker command and barebone C++ image' do
     let(:dir) { Dir.pwd + '/spec/fixtures/submission_runners/cpp/' }
 
