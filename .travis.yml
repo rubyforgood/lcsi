@@ -8,8 +8,6 @@ notifications:
   slack: rubyforgood:Z8KxX1B7VPwG7MJFRch66746
 services:
   - docker
-before_install:
 before_script:
   - chmod -R 0777 spec/fixtures/submission_runners
-  - docker pull ruby:2.4.1
-  - docker pull python:3.6.1
+  - rake docker
