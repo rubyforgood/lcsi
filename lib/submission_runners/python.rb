@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'submission_runners/base'
+require_relative '../support/interpretive_language'
 
 module SubmissionRunners
   class Python < Base

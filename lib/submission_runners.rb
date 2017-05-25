@@ -8,6 +8,12 @@ module SubmissionRunners
 
   def self.language_extension_map
     {
+      '.c++'  => Cpp,
+      '.cpp'  => Cpp,
+      ".cc"   => Cpp,
+      ".C"    => Cpp,
+      ".cxx"  => Cpp,
+      ".cr"   => Crystal,
       '.java' => Java,
       '.py'   => Python,
       '.rb'   => Ruby,

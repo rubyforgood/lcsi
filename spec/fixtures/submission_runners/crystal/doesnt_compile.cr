@@ -1,0 +1,1 @@
+ARGF.each

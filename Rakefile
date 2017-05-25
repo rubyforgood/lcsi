@@ -8,9 +8,10 @@ Rails.application.load_tasks
 desc 'Pull Docker Images'
 task :docker do
   require_relative 'lib/submission_runners'
+  require 'set'
   Dir['lib/submission_runners/*'].each do |f| require_relative f end
   include SubmissionRunners
-  SubmissionRunners.language_extension_map.values.each do |language|
+  Set.new(SubmissionRunners.language_extension_map.values).each do |language|
     system(*%W[docker pull #{language.image}])
   end
 end
